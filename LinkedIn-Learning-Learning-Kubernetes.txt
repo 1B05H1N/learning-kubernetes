@@ -1,0 +1,525 @@
+LinkedIn-Learning-Learning-Kubernetes
+
+What is containerization?
+A collection of software processes unified by one namespace, with access to an operating system kernel that it share with other containers and little to no access between containers. 
+
+Docker Instance
+A runtime instance of a Docker image contains three things:
+
+1. A Docker image
+2. An execution environment 
+3. A standard set of instructions
+
+Compared to object oriented programming a container would be an object, and a class would be the container. 
+
+Docker Engine
+-Comprised of the runtime and packaging tool
+-Must be installed on the hosts that run Docker
+
+Core elements of Docker
+1) Docker Store
+-An online cloud service where users can store and share their Docker images
+-Also known as Docker Hub
+
+2) Docker Store
+-An online cloud service where users can store and share their Docker images
+-Also known as Docker Hub
+
+Virtual Machine (VM)
+-One or many applications
+-The necessary binaries and libraries
+-The entire guest operating system to interact with the applications
+
+Containers
+-Include the application and all of its dependencies
+-Share the kernel with other containers
+-Not tied to infrastructure-only needs Docker Engine installed on the host
+-Run as an isolated process in the user space on the host OS
+
+Container Benefits for Developers
+
+Applications are
+1. Portable
+2. Packaged in a standard way
+
+Deployment is
+1. Easy
+2. Repeatable
+
+Container Benefits for Developers
+-Automated testing, packaging, and integrations
+-Support newer microservice architectures
+-Alleviate platform compatibility issues
+
+Container Benefits for DevOps
+-Reliable deployments: improve speed and frequency of releases
+-Consistent application lifecycle: configure once and run multiple times
+
+Container Benefits for DevOps
+Consistent environments
+-No more process difference between non-prod and production environments
+
+Simple scaling
+-Fast deployments ease the addition of workers and permit workload to grow and shrink for on-demand use cases
+
+Developers and DevOps can come together as containers create a common language.
+
+The DevOps team can isolate and debug issues at the container level. 
+
+Use of Containerized Apps is on the Rise
+
+Organizations will use containers more often. 
+
+Containers and Microservices 
+
+Allow the Building of Pipelines
+-Containers bring agility to your code
+-Help build a continuous integration and deployment pipeline
+-Push an IT team to develop, test, and deploy applications faster
+-Reason why enterprises have started to adopt containers in such a big way
+
+Kubernetes - most popular open-source container orchestrator today
+
+How do you manage all these containers running on a single host, and across your whole infrastructure?
+Container orchestration!
+
+Orchestrator Features
+-Provision hosts
+-Instantiation containers on a host
+-Restart failing containers
+-Have ability to link containers together so they can communicate with their peers
+-Expose containers as a service outside of the cluster
+-Scale the cluster up or down
+
+Kubernetes (K8s)
+-Definition: an open-source platform designed to automate deploying, scaling, and operating applications containers
+-Goal: to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds
+
+Borg was the predecessor of Kubernetes (Google).
+
+Kubernetes is a platform to schedule and run containers on clusters of virtual machines. It runs on bare metal, virtual machines, private datacenter and public cloud.
+
+No golden handcuffs when migrating to the cloud.
+
+Kubernetes and Docker
+
+Kubernetes is a container platform. 
+
+You can use Docker containers to develop and build applications, and then use Kubernetes to run these applications on your infrastructure.
+
+There are other types of containers and many different companies using kubernetes
+
+Kubernetes Features
+
+"Kubernetes is an open source project that enables software teams of all sizes, from a small startup to a Fortune 100 company, to automate deploying, scaling, and managing applications on a group of cluster of server machines. These applications can include everything from internal-facing web applications like a content management system to marquee web properties like Gmail to big data processing."
+-Joe Beda (One of the original developers who worked on Kubernetes)
+
+Multi-Host Container Scheduling
+-Done by the kube-scheduler
+-Assigns pods to nodes at runtime
+-Checks resources, quality of service, policies, and user specifications before scheduling
+
+Scalability and Availability
+-Kubernetes master can be deployed in a highly available configuration
+-Multi-region deployments available 
+
+Scalability (v.1.17)
+-Supports 5k node clusters
+-150k total pods
+-Maximum of 100 pods per node
+-Pods can be horizontally scaled via API
+
+Flexibility and Modularization
+-Plug-and-play architecture
+-Extend architecture when needed
+-Add-ons: network drivers, service discovery, container runtime, visualization, and command
+
+Registration - Seamless nodes register themselves with master.
+Service Discovery - Automatic detection of service and endpoints via DNS or Environment Variables
+
+Persistent Storage
+-Much requested and important feature when working with containers
+-Pods can use persistent volumes to stores data
+-Data retained across pod restarts and crashes
+
+Application Upgrades and Downgrades
+-Upgrades: rolling updates supported
+-Downgrades: rollbacks are supported 
+
+Maintenance
+-Features are backward compatible
+-APIs are versioned
+-Turn off/on host during maintenance (unscheduled)
+
+Logging and Monitoring
+-Application monitoring built-in
+--TCP, HTTP, or container execution health check
+-Node health check
+--Failures monitored by node controller
+-Kubernetes status can also be monitored by:
+--Add-ons: Heapster and cAdvisor
+-Logging framework
+--In place of extensible
+
+Secrets Managed
+-Sensitive data is a first-class citizen
+-Mounted as data volumes or environment variables
+-Specific to namespace
+
+Community - one of the strongest open-source communities out there
+
+There is a great amount of important documentation
+
+-KubeCon - events.linuxfoundation.org
+-Meetups - meetup.com/topics/kubernetes
+-Slack - kubernetes.slack.com --great place to ask questions
+
+Other Implementations
+
+ADVICE - Don't build your own orchestrator today-you'll only regret it and end up moving to something else anyway. 
+
+Major Players in Container Orchestration
+-Kubernetes
+-Docker Swarm
+-Rancher
+-Mesos
+
+Cloud-Specific Technologies
+-Amazon EC2 Container Service and Google Anthos
+
+Mesos
+-Written in C++, APIs in Java, C++, Python
+-Oldest, most stable tool
+-Distributed kernel
+-Marathon framework to schedule and execute tasks
+-More complicated architecture than Swarm
+
+Typical Mesos Users
+-Larger enterprises
+-Projects that require lots of compute (big data jobs) or task-oriented workloads
+-Driven by developers
+-Need an ops team to manage
+
+Rancher
+-Full stack container management platform
+-Install and manage Kubernetes clusters
+-Early Docker ecosystem player
+-Great user interface and API to interact with clusters
+-Enterprise support
+
+Typical Rancher Users
+-Small teams to enterprises
+-Support organizations and teams out of the box
+-Nice user interface, and APIs
+-Easy to manage infrastructure effectively
+
+Guidelines for the Right Orchestrator for the Job:
+
+Smaller team size & Number of Hosts/Containers to larger: Nomad, Rancher, Docker Swarm, Mesos, Kubernetes
+
+Containers are the new normal, and many organizations are using them for production. 
+
+When to Go Serverless
+-Consider serverless technologies if:
+--Starting to build your infrastructure form scratch
+--Running your infrastructure in the cloud
+
+Chapter Quiz
+1)
+Two features that allow Kubernetes Clusters to scale are -registration and -discovery.
+
+2)
+How would you best describe Kubernetes?
+-an open-source platform designed to automate deploying, scaling, and operating application containers
+
+3)
+Why do organizations user containers?
+-to build applications to incorporate a microservices-based architecture. 
+
+The Kubernetes Architecture
+Master Node -responsible for overall management of the Kubernetes cluster
+
+3 components of the Master Node that take care communication, scheduling, and controllers:
+1) The API Server -Front end of K8s control plane
+2) Scheduler -Watches created Pods who do not have a Node design and design pods to run on a specific Node
+3) Controller Manager 
+3a) Node Controller - responsible for worker states
+3b) Replication Controller - responsible for maintaining the correct number of Pods for the replicated controllers
+3c) Endpoint controller -joins services and pods together. Service account and token controllers handle access management.
+
+etcd - simple distributed key-value store
+
+Kubernetes uses etcd as it's database, and stores all cluster data there. Information you might see in etcd is scheduling information, pod details, state information, etc.
+
+You interact with the master node with kubectl. It has a configuration file called kubeconfig that has server information and authentication information to access the API server. 
+
+Worker Node - where your application operates
+-Communication to worker nodes are handled by the kubelet process
+
+Kubelet process -agent that communicates with the API server to see if pods have been designed to the nodes. It executes pod containers via the container engine, mounts/runs pod volumes and secrets, and is aware of pod/node states and will respond back to the master. 
+
+If kubelet isn't working correctly in the worker node, then you will have issues. 
+
+Kubernetes is a container orchestration platform, so the expectation is that you have a container native platform running on your worker nodes. Docker comes into play because it works together with kubelet to run containers on the node -other platforms can be used but it's not common. 
+
+Kube-proxy -network, proxy, and load balancer for the service on a single worker node. 
+-Handles network routing for TCP and UDP packers and performs connection forwarding
+
+Docker daemon allows you to run containers
+Containers of an application are tightly coupled together in a pod
+
+Pod -smallest unit that can be scheduled as deployment in kubernetes.
+
+A group of containers can share storage, Linux namespace, IP addresses, amongst other things. They also co-located, and can also share resources that are scheduled together. Once a pod has been deployed and is running, the kubelet communicates with it to check its state and health. Kube-proxy routes any packets to the pods from other resources that might be wanting to communicate with them. Worker nodes can be exposed to the internet via the load balancer. Traffic coming to the nodes is handled by the Kube-proxy, which is how and end-user talks to a kubernetes application. 
+
+Basic Building Blocks:
+Nodes and Pods
+
+From a cluster perspective, the master node is responsible for managing the cluster. It coordinates activities in the cluster and communicates with the nodes to keep kubernetes and the worker node applications running.
+
+Node
+The node serves as a worker machine in a K8s cluster. One important thing to note is that the node can be a physical computer or virtual machine.
+
+Node Requirements
+1. A kubelet running
+2. Container tooling like Docker
+3. A kube-proxy processing running
+5. Supervisord
+
+Recommendation
+If you're using Kubernetes in production, it is typically recommended to have at least a three-node cluster.
+
+Minikube
+
+Lightweight Kubernetes implementation creates a VM on your local machine and deploys a simple cluster containing a single node.
+
+Pod -The simplest unit that you can interact with. You can create, deploy, and delete pods, and it represents one running process on your cluster.
+
+What's in the Pod?
+-Your Docker application container
+-Storage resources
+-Unique network IP
+-Options that govern how the container(s) should run
+
+Pods Are...
+-Ephemeral, disposable
+-Never self-heal, and not restarted by the scheduler by itself
+-Never create pods just by themselves 
+-Always use higher-level constructs called controllers
+
+Tip: use a controller like a deployment
+
+Pod States
+-Pending: where a pod has been accepted by the Kubernetes system, but a container has not been created yet
+-Running: where a pod has beens scheduled on a Node
+-Succeeded: all of its containers in the pod have existed with an exit status of zero in which indicates successful execution and will not be restarted
+-Failed: all containers in the pod have exited and at least one container has failed and returned a non-zero exist status
+-CrashLoopBackOff: container fails to start, and then Kubernetes tries over and over to restart the pod
+
+
+Deployments, ReplicaSets, and Services
+
+Benefits of Controllers
+-Application reliability: multiple instances of an application running prevent problems if one or more instance fails
+-Scaling: pods experience a high volume of requests, kubernetes allow you to scale up your pods allowing for a better user experience
+-Load balancing: where having multiple versions of a pod running allow traffic to flow to different pods and doesn't overload one single pod or node
+
+Kinds of Controllers
+-ReplicaSets
+-Deployments
+-DaemonSets
+-Jobs
+-Services
+
+ReplicaSet
+-Ensures that a specified number of replicas for a pod are running at all times
+
+Deployments
+-A Deployment controller provides declarative updates for pods and ReplicaSets
+
+A Deployment manages a ReplicaSet, which in turn manages a Pod. Benefits are that deployments can support a rollback mechanism.
+
+Deployment Controller Use Cases
+-Pod management: Running a ReplicaSet allows us to Deploy a number of pods, and check their status as a single unit
+-Scaling a ReplicaSet scales out the pods, and allows for the deployment to handle more traffic
+
+Deployment Controller Use Cases
+Pause and Resume:
+-Used with large changesets
+-Pause deployment, make changes, resume deployment
+
+Deployment Use Case
+-Status
+-Easy way to check the health of pods, and identify issues
+
+Replication Controller
+-Early implementation of deployment and ReplicaSet
+-Use deployments and ReplicaSets instead
+
+DaemonSets
+-DaemonSets ensure that all nodes run a copy of a specified pod.
+-As nodes are added or removed from the cluster, a DaemonSet will add or remove the required pods.
+-Deleting a DaemonSet will clean up all the pods it created
+
+Jobs
+-Supervisor process for pods carrying our batch jobs
+-Run individual processes that run once and complete successfully
+-They're usually run as on cron
+
+Service
+-Allow the communication between one set of deployments with another
+-Use a service to get pods in two deployments to talk to each other
+
+Using Services
+-They allow one set of pods to communicate with another set of pods in an easy way
+-It's best practice to use a service when you're trying to communicate with another set of pods in an easy way
+-It's best practice to use a service when you're trying to get two deployments to talk to each other so the pod in the first deployment has an IP that they can communicate with regardless of whether the pod IPs in the second deployment change
+
+Kind of Services
+-Internal: IP is only reachable within a cluster
+-External: endpoint available through node ip: port (called NodePort)
+-Load balancer: Exposes application to the internet with a load balancer (available with a cloud provider)
+
+Labels, Selectors, and Namespaces
+
+Labels: key-value pairs that are attached to an object like pods, services, and deployments. Labels are users of kubernetes to identify attributes for objects. 
+
+Examples of Labels
+"release" : "stable", "release" : "canary"
+"environment" : "dev", "environment" : "qa", "environment" : "production"
+"tier" : "frontend", "tier" : "backend", "tier" : "cache"
+
+Think about what your environment looks like, and create labeling for hierarchy for it.
+
+Labels and Selectors
+-Labels used with selectors gives you a powerful feature
+-Label selectors allow you to identify a set of objects
+
+Selectors
+1. Equality-based
+2. Set-based
+
+Equality-based Selectors
+= -two labels or values of labels should be equal
+!= -the values of labels should not be equal
+
+Set-based Selectors
+-IN: A value should be inside a set of defined values
+-NOTIN: A value should not be in a set of defined values
+-EXISTS: Determines whether a label exists or not
+
+-Used with kubectl
+-Examples later
+
+Namespaces
+-Feature that allow you to have multiple virtual clusters backed by the same physical cluster
+-Great for large enterprises
+-Allows teams to access resources, with accountability
+-Great way to divide cluster resources between users
+-Provides scope for names-must be unique in the namespace
+-"Default" namespace created when you launch kubernetes
+-Objects places in "default" namespace to start
+-Newer applications install their resources in different namespace
+
+Kubelet and kube-proxy
+
+Kubelet: the "Kubernetes node agent" that runs on each node
+
+Kubelet Roles
+-Communicates with API server to see if pods have been assigned to nodes
+-Executes pod containers via a container engine
+-Mounts and runs pod volumes and secrets
+-Executes health checks to identify pod/node status
+
+Kubelet and Podspec
+-Podspec: YAML file that describes a pod
+-The kubelet takes a set of Podspecs that are provided by the kube-apiserver and ensures that the containers described in those Podspecs are running and healthy
+-Kubelet only manages containers that were created by the API server-not any container running on the node
+
+kube-proxy: The Network Proxy
+-Proxy that runs on all worker nodes
+-Reflects service as defined on each node, and can do simple network stream or round-robin forwarding across a set of backends
+-Service cluster IPs and ports are currently found through Docker--link compatible environment variables specifying ports opened by the service proxy
+
+Three Modes of kube-proxy
+1. User space mode: most common mode
+2. Iptables mode
+3. Ipvs mode (alpha feature in v1.8)
+
+Why These Modes are Important
+-Service defined against the API server: kube-proxy watches the API server for additional and removal of services
+-For each new service, kube-proxy opens a randomly chosen port on the local node
+-Connections made to the chosen port are proxied to one of the corresponding back-end pods
+
+Chapter Quiz
+1) In which scenario would using namespaces be a great concept?
+-In a large enterprise where there many users and teams
+
+2) Why will you create deployments more than anything else?
+-Most applications are package deployments
+
+3) When a pod has been scheduled on a node, and all of its containers are created, which pod life cycle is represented?
+-Running
+
+4) Where do applications operate within Kubernetes?
+-Worker nodes
+
+Installing Kubernetes - Mac/Windows
+Use homebrew for Mac and Scoop for Windows: docker, kubectl, minikube, and hyper-v (windows)
+
+>minikube start --vm-driver="hyperv" --hyperv-virtual-switch="minikube"
+PS C:\Users\account> minikube start --vm-driver="hyperv" --hyperv-virtual-switch="minikube"
+😄  minikube v1.19.0 on Microsoft Windows 10 Pro 10.0.19042 Build 19042
+✨  Using the hyperv driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🔥  Creating hyperv VM (CPUs=2, Memory=4000MB, Disk=20000MB) ...
+🐳  Preparing Kubernetes v1.20.2 on Docker 20.10.4 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+Other Ways to Run Kubernetes
+
+Ways to Run Kubernetes
+1. Minikube
+2. Docker Desktop 
+3. Kubernetes in Docker (kind)
+4. Managed Kubernetes service in a cloud -for example, Amazon Elastic Kubernetes Service (EKS)
+
+Minikube
+-Course is based on Minikube
+-Original tooling to run Kubernetes locally
+-One of the largest sub-communities in cloud native ecosystem
+-Supports the latest version of Kubernetes quickly
+-User experience targeted to brand-new users of Kubernetes
+-Abstracts complexities while getting started
+-Powerful addons features - some tooling bundled in (as we will use later)
+
+Docker Desktop
+-Easily create a Kubernetes cluster with the Docker Desktop interface
+-Pleasant new user experience
+-Recommend if you are having trouble with Minikube, or are already familiar with Docker Desktop
+-Disadvantage
+--Lags Kubernetes versions
+--Can take longer to see the latest version compared to Minikube
+
+kind
+-Kubernetes in Docker
+-Popular tooling
+-Run kubernetes clusters in Docker containers as nodes
+-Typically used for testing or Kubernetes development
+-Good day-two tool
+-Great for working with Kubernetes development and testing
+-Not suited for beginners
+
+Managed Kubernetes Services
+-Run Kubernetes clusters without worrying about running the control plane
+-Available on all major cloud providers
+-If you don't already have an account with a provider, stay with Minikube
+-Can spend more time getting setup than running a Kubernetes Hello World application
+
+Exercise Files
