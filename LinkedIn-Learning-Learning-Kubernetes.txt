@@ -545,3 +545,236 @@ Quiz 4
 3) How are labels added to a running pod?
 -By overwriting
 
+Quiz 5
+1) Why was the Kubernetes dashboard created? 
+-To visualize and monitor clusters from an operational perspective
+
+2) Why would you use application secrets?
+- When dealing with sensitive information
+
+3) What command lets you look at the actual configmaps that you created
+- kubectl get configmaps
+
+Production Deployments of Kubernetes
+
+Early Kubernetes Production Deployments: it was difficult/impossible to deploy and manage kubernetes to production
+
+Kubernetes the Hard Way: check out Kelsey Hightowers "kubernetes-the-hard-way"
+
+https://github.com/kelseyhightower/kubernetes-the-hard-way
+
+kubeadm
+Install steps
+
+1. Initially provision the master host with Docker and the Kubernetes distrobution.
+2. Run kubeadm init, which starts kubeadm, provisoins the kubernetes control plan, and provides join token.
+3. Run kubeadm join with join token on each worker node. The workers will join the cluster. 
+
+Install a Pod Network
+-Evaluate your networking strategies
+-Consider Flannel and Weave Net as starting possbilities
+
+kops: used in AWS infrastructure
+
+kops features
+-Automates the K8s clsuter provisioning in AWS
+-Deploys high-availability (HA) masters
+-Permits upgrading with kube -up
+-Uses a state-sync model for dry runs and automatic idempotency
+-Generates configuration files for AWS CloudFormation and Terraform configuration
+-Supports customer Kubernetes add-ons
+-Uses manifest-based API configuration
+
+kops is a very popular way to deploy Kubernetes to Amazon and looks similar to the way kubectl operates. 
+
+If you're going to run K8s on a cloud provider, you might want to consider their native contianer services.
+
+Managed Kubernetes vs. Self-Install
+-Managed Kubernetes offerings are popular choices for Kubernetes in the cloud
+-Spend less time configuring the Kubernetes Control Plane, and more time on your applications
+-Caveat: limited configruation and slower version upgrades
+
+Recommendation
+-If you're running Kubernetes in the cloud, start with the managed service, it reduces infrastructure management overhead. 
+-If your application require specific settings that aren't available with the managed service, then run your own Kubernetes install. 
+
+It's quicker than you think to get a production-worthy Kubernetes platform up and running. 
+
+Namespaces
+-Way to add multi-tenancy to your Kubernetes instance. 
+-Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces. 
+
+Namespcae Use Cases
+1. Roles and responsibilities in an enterprise
+2. Partitioning landscapes: dev vs. test vs. prod
+3. Customer partitioning for non-multi-tenant scenarios
+4. Application partitioning 
+
+Enterprise Roels and Responsibilities
+Typically, teams operate independently but have some shared interfaces and APIs to communicate with each other.
+
+Namespaces precent teams from confusing services and deployments that might not belong to them
+
+Roles and Responsibilities Tips
+1. Plan how you want to manage your enterprise in a K8s environment. Setting standard up front will help with long-term infrastructure management. 
+2. Don't simply transpose existing on-premises control and procedures onto the new environment. This could bring your exiting infrastructure baggage to the new environment.
+
+Dev | Test | Prod Namespaces
+Namespaces partition development landscapes. 
+
+Caution
+1. Avoid really large namespaces: Do you have many applications? Consider creating additional namespaces for groups of applications. 
+2. Avoid too many environments: Don't abuse namespaces resulting in unnecssary environments. 
+
+Non-multi-tentant Customer Partitioning 
+-Consulting companies and small software vendors might use this method.
+-Create a namespace for each customer or project to keep them distinct -- no need to worry about reusing the same names for resources across projects.
+
+A new side effect of using the new package member Helm, is that it has made managing K8s very complex.
+
+Basic Namespcae Commands
+-kubectl get namespaces (Returns all existing namespaces)
+
+Basic Namespaces Commands
+
+kubectl create namespace
+-create a namespace using this command followed by the name you'd like to use
+
+kubectl delete namespce
+-delete a namespace using this command followed by the name you'd like to delete 
+
+Basic Namespace Commands
+-n namespace-name
+-When deploying a resource like a deployment to a specific namespace, adding this flag will make the resource exist in the namespace. 
+
+Monitoring and Logging
+
+If your app isn't outputting logs, then it should.
+
+Commands to Get Started
+-stout: kubernetes will automatically link up the logs 
+
+Once your application is running in staging or production, you might consider using a logging platform like Kibana with Elasticsearch, with logging being shipped to them from pods using Fluentd or Filebat(Logstash).
+
+Architecture
+-You would typically run a deployment for your Elasticsearch and Kibana instance outside of your application
+-The Elasticsearch endpoints needs to be accessible to pods from the cluster, and the Kibana instance should be exposed as a service so that you can see log information in the Kibana user interface
+-Your application deployment, you'll want the log shipper, Fluentd, Logstash or Filebeat, to gather log data and periodically send it to the Elasticsearch instance
+
+Monitoring Priorities
+-Node health
+-Health of Kubernetes
+-Application health (and metrics)
+
+cAdvisor
+-cAdvisor is an open-source resource usage collector that was built for containers.
+-Auto-discovers all containers in the given node and collects CPU, memory, filesystem, and network usage statistics.
+-Provides the overall machine usage by analyzing the root container on the machine
+
+Prometheus
+-Prometheus is an open-source system monitoring and alerting toolkit.
+-Initially used to collect application metrics and monitor Kubernetes via projects like kube-prometheus
+
+Application Metrics
+-You can instrument your applications to save application monitoring data at a metrics endpoint, that Prometheus queries in a timely manner.
+
+Promethus and cAdvisor are typically linked to Grafana, which is an open-source tool to visualize monitoring data. 
+
+Monitoring and logging is pretty young and is rapidly changing. 
+-If you're going the open-source route, read the docs for the projects
+-Setting up logging and monitoring can be challenging and there's a lot of work to be done around the user experience and setup of these tools to make things easier
+-There are enterprise tooling like Datadog, Splunk and Sysdig that may already be useful
+-If you're already using them in your infrastructure, take a look at what kubernetes support they have and use them where applicable. No point in reinventing the wheel when you don't have to
+
+
+1. Read the docs for the projects. A lot of work is being done around UX and the setup of these tools to make things easier. 
+2. If you use enterprise tools like Datadog or Splunk for your infrastructure, tkae a look at what Kubernetes support they have already, and use it. 
+
+Authentication and Authorization
+-From an architecture perspective, users who are trying to access the Kubernetes API, via the kubectl command, first have to be authenticated to access the API. They then need to be authorized to run specific actions.
+-Ocassionally, users may also need to have admission control to approve or rejct a request.
+
+Two Kinds of Users
+-Normal users: Humans interacting with the system
+-Service accounts: Accounts managed by the K8s API
+
+Information That Defines a User
+-Username: a string to identify the end user
+-UID: an idenfitier that is more consistent or unique than username
+-Group: a string that associates users with a set of commonly grouped users-used later by the authorization module
+-Extra fields: a map of strings that hold additional information that might be used by the authorization system
+
+Definitions
+Authenticaton
+-Does a user have access to the system?
+
+Authorization
+-Can the user perform an action in the system?
+
+Popular Authentiation Modules
+-Client certs
+-Static token files (static password file)
+-OpenID Connect
+-Webhook mode
+
+Client Certificate Authentication
+-Client certificate authentication enabled by passing --client-ca-file=FILENAME option to the API server
+-Referenced file must contain one or more certificate authorities to validate client certificates
+-The common name of a client certificate is used as the user name for the request
+
+Token File Exampel
+-Use --token-auth-file=FILE_WITH_TOKENS option on the command line
+-Token file is a CSV file with four columns: token, user name, user UID, followed by optional group names: Example: token,user,uid,"group1,group2,group3"
+-Last indefinitely and you have to restart the API server to rotate the password
+
+OpenID Connect
+-If you already have Open ID or Active Directory in your org, take a look at OpenID Connect tokens
+-Scope of this feature is past the course, but look at exercise files for more details
+
+Webhook Tokens
+-The kube-apiserver calls out to a service defined by you to tell it whether a token is valid or not
+-Used commonly in scenarios where you want to integrate Kubernetes with a remote authentication service
+
+Popular Authorization Modules for Enterprises
+-ABAC: Attribute-based access control: defines an access control paradign whereby access rights are granted to users through the use of policies that combines attributes together. The ABAC file defines what access a specific user might have to all resources. 
+-RBAC: Role-based access control: the most common authorization mechanism used in Kubernetes and a lot of applicaitons end up using RBAC to authorize their service accounts. RBAC depends on roles and cluste roles. These are rules that represent a set of permissions. A role can be defined within the namespace with a role or clusterwide with a cluster role. 
+-Webhook
+
+Role-Based Access Control (RBAC)
+-Does a user have a role that can perform a specific action?
+-Lots of applications want to use RBAC-keep it turned on even if you don't use it directly
+
+RoleBinding or ClusterRoleBinding: hold the users or groups as a reference to the role being granted. Permissions can then be granted within a namespace witha RoleBinding or cluster wide with a cluster role binding. 
+
+Webhook Authorization Mode
+-The kube-apiserver calls out to a service defined by you to tell it whether a specific action can be performed-it sends the token and the action the token is trying to perform
+-This method works great when trying to integrate witha  third-party authorization system, or if you want a complex set of rules
+
+The kube API server will send a request with a user and resource attribute data to a remote server that you define, that interprets the request and defines whether a request is allowed or not. This method works well if you're trying to integrate with a third party authorization system, or if you want a complex set of rules. 
+
+Quiz 6
+
+1) Starting out, why is it better for your application to be running in a pod to write logs to Stdout?
+-To automatically pick up the logs, and show you anything in the log info when you do a kubectl logs command to fetch the logs
+
+2) Who would benefit from using customer partitioning that is not multi-tenant?
+-Consulting companies and small software vendors
+
+Where to Go from here?
+-Check out other container and Kubernetes courses in the library
+-Kubernetes: Native Tools
+
+Kubernetes Community
+-Kubernetes the hard way: https://github.com/kelseyhightower/kubernetes-the-hard-way
+
+Look at the K8s documentation: https://kubernetes.io/docs/home (can get confusing when looking for docs for previous version of K8s)
+
+Slack: kubernetes.slack.com 
+
+Cloud Native Computing Foundation: https://www.cncf.io
+
+Meetups: https://www.meetup.com/pro/cncf
+
+Conferences: KubeConm, DockerCon
+
+Follow Karthik and the other admins at "theagileadmin.com"
