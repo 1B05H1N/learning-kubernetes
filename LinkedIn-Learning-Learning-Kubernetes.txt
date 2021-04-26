@@ -522,4 +522,26 @@ Managed Kubernetes Services
 -If you don't already have an account with a provider, stay with Minikube
 -Can spend more time getting setup than running a Kubernetes Hello World application
 
-Exercise Files
+Quiz 3
+1) If you are in Windows and using Powershell, the command docker version will check that -docker is up and running
+
+2) What happens with the command code chmod +x ./kubectl?
+-It makes the kubectl executable
+
+3) How can you combine the deployment and service yaml into a single yaml file?
+-Run the command vi helloworld-all.yml
+
+4) How can you verify that Minikube and VirtualBox are talking to each other?
+-Run the command kubectl get nodes
+
+
+Quiz 4
+1) Why does Kubernetes use a liveliness probe?
+-So you can run a periodic check on a container to make sure the container is still healthy
+
+2) What does running the command kubectl get pods --selector dev-lead=karthik,env=staging allow you to do?
+-Add and search by multiple labels
+
+3) How are labels added to a running pod?
+-By overwriting
+
